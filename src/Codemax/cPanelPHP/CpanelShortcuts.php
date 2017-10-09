@@ -5,11 +5,31 @@
  *
  * @package Codemax\CpanelWhm
  */
+/**
+ * Trait CpanelShortcuts
+ * @package Codemax\cPanelPHP
+ */
 trait CpanelShortcuts
 {
     /******************************************************************************
      * WHM Accounts
      ******************************************************************************/
+
+    /**
+     * Trocar senha de uma conta no WHM
+     *
+     * @param $username
+     * @param $password
+     *
+     * @return mixed
+     */
+    public function resetPassword($username, $password)
+    {
+        return $this->runQuery('passwd', [
+            'user' => $username,
+            'pass' => $password
+        ]);
+    }
 
     /**
      * Lista todas as contas de uma Revenda ou Root
@@ -37,7 +57,7 @@ trait CpanelShortcuts
             'username' => $username,
             'domain' => $domain_name,
             'password' => $password,
-            'plan' => $plan,
+            'plan' => $this->getUsername().'_'.$plan,
             'reseller' => $reseller
         ]);
     }
@@ -51,6 +71,17 @@ trait CpanelShortcuts
     {
         return $this->runQuery('removeacct', [
             'user' => $username,
+        ]);
+    }
+
+    public function editAccount($username, $params)
+    {
+        return $this->runQuery('modifyacct', [
+            'user' => $username,
+            'bwlimit' => $params['bw_limit'],
+            'quota' => $params['disk_limit'],
+            //'newuser' => $username,
+            'owner' => $this->getUsername(),
         ]);
     }
 

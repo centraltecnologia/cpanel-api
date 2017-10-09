@@ -2,13 +2,13 @@
 require 'vendor/autoload.php';
 
 $cPanel = new \Codemax\cPanelPHP\Cpanel(array(
-    'host'        =>  'https://200.201.136.177:2087', // ip or domain complete with its protocol and port
-    'username'    =>  'codemax', // username of your server, it usually root.
-    'auth_type'   =>  'password', // set 'hash' or 'password'
-    'password'    =>  'lucm871g.', // long hash or your user's password
+    'host'        =>  'https://123.456.789.123:2087', // ip or domain complete with its protocol and port
+    'username'    =>  'root', // username of your server, it usually root.
+    'auth_type'   =>  'hash', // set 'hash' or 'password'
+    'password'    =>  'password', // long hash or your user's password
 ));
 
-//$accounts = $cPanel->createAccount('gerentepro.com.br', 'gerentep', 'abc,123', 'codemax_plano_1GB');
+//$accounts = $cPanel->createAccount('gerentepro2.com.br', 'gerentet', 'abc,123', 'gerentep');
 # WORK
 
 //$accounts = $cPanel->destroyAccount('gerentep');
@@ -17,21 +17,16 @@ $cPanel = new \Codemax\cPanelPHP\Cpanel(array(
 //$accounts = $cPanel->detailsAccount('gerentep');
 # WORK
 //$accounts = $cPanel->listSuspended();
-/*
-$args = [
-    'disk_limit' => '1000',
-    'bw_limit' => '10000',
-    'ip' => 'y',
-    'cgi' => 1,
-    'frontpage' => 1,
-    'theme' => 'x3',
-    'mails' => 'unlimited',
-    'domains' => 0,
-    'domains_park' => 'unlimited',
-    'sql_limit' => 'unlimited'
-];
-*/
-//$pkg = $cPanel->changePackage('gerentep','Mega 2GB');
 
-$pkg = $cPanel->gethostname();
+$args = [
+    'disk_limit' => '2000',
+    'bw_limit' => '10000',
+];
+
+//$pkg = $cPanel->addPackage('Facil 1GB',$args);
+
+
+//$pkg = $cPanel->editAccount('codemax', $args);
+//$accounts = $cPanel->listAccounts();
+$pkg = $cPanel->editAccount('gerentet', $args);
 print_r($pkg);
