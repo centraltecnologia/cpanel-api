@@ -33,5 +33,5 @@ $args = [
 */
 //$pkg = $cPanel->changePackage('gerentep','Mega 2GB');
 
-$pkg = $cPanel->listAccounts();
+$pkg = $cPanel->gethostname();
 print_r($pkg);

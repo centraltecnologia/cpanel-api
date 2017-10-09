@@ -8,7 +8,7 @@
 trait CpanelShortcuts
 {
     /******************************************************************************
-     * INÍCIO Funções WHM
+     * WHM Accounts
      ******************************************************************************/
 
     /**
@@ -31,13 +31,14 @@ trait CpanelShortcuts
      *
      * @return mixed
      */
-    public function createAccount($domain_name, $username, $password, $plan)
+    public function createAccount($domain_name, $username, $password, $plan, $reseller = 0)
     {
         return $this->runQuery('createacct', [
             'username' => $username,
             'domain' => $domain_name,
             'password' => $password,
             'plan' => $plan,
+            'reseller' => $reseller
         ]);
     }
 
@@ -101,6 +102,10 @@ trait CpanelShortcuts
             'reason' => $reason,
         ]);
     }
+
+    /******************************************************************************
+     * WHM Packages
+     ******************************************************************************/
 
     /**
      * Essa função faz Upgrade/Downgrade de uma conta no WHM
