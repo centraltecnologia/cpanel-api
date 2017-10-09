@@ -1,17 +1,17 @@
-<?php namespace Gufy\CpanelPhp;
+<?php namespace Codemax\cPanelPHP;
 
 use GuzzleHttp\Client;
 
 /**
  * cPanel/WHM API
  *
- * Provides easy to use class for calling some CPanel/WHM API functions.
+ * Fornece uma classe fácil de usar para chamar algumas funções da API CPanel / WHM.
  *
- * @author Mochamad Gufron <mgufronefendi@gmail.com>
+ * @author Lucas Maia <lucas.codemax@gmail.com>
  *
  * @version v1.0.2
  *
- * @link https://github.com/mgufrone/cpanel-php
+ * @link https://github.com/codemaxbr/cpanel-php
  * @since v1.0.0
  */
 class Cpanel implements CpanelInterface

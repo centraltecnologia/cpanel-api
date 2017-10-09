@@ -1,20 +1,18 @@
-<?php namespace Gufy\CpanelPhp;
+<?php namespace Codemax\cPanelPHP;
 
 /**
  * Trait CpanelShortcuts
  *
- * A handful of shortcuts for getting things done(tm)
- *
- * @package Gufy\CpanelWhm
+ * @package Codemax\CpanelWhm
  */
 trait CpanelShortcuts
 {
     /******************************************************************************
-     * START WHM Functions
+     * INÍCIO Funções WHM
      ******************************************************************************/
 
     /**
-     * List all the accounts that the reseller has access to.
+     * Lista todas as contas de uma Revenda ou Root
      *
      * @return mixed
      */
@@ -24,7 +22,7 @@ trait CpanelShortcuts
     }
 
     /**
-     * Create a new account
+     * Cria uma nova conta
      *
      * @param $domain_name
      * @param $username
@@ -44,7 +42,7 @@ trait CpanelShortcuts
     }
 
     /**
-     * This function deletes a cPanel or WHM account.
+     * Deletar uma conta permantemente do WHM (não reversivel)
      *
      * @param string $username
      */
@@ -55,6 +53,12 @@ trait CpanelShortcuts
         ]);
     }
 
+    /**
+     * Reativa um conta que estava suspensa
+     *
+     * @param $username
+     * @return mixed
+     */
     public function unsuspendAccount($username)
     {
         return $this->runQuery('unsuspendacct', [
@@ -62,6 +66,12 @@ trait CpanelShortcuts
         ]);
     }
 
+    /**
+     * Mostra detalhes de recursos de uma conta
+     *
+     * @param $username
+     * @return mixed
+     */
     public function detailsAccount($username)
     {
         return $this->runQuery('accountsummary', [
@@ -70,7 +80,7 @@ trait CpanelShortcuts
     }
 
     /**
-     * List all the accounts suspended that the reseller with reasons
+     * Lista todas as contas suspensas e a razão de estar suspensa
      * @return mixed
      */
     public function listSuspended()
@@ -79,7 +89,7 @@ trait CpanelShortcuts
     }
 
     /**
-     * This function suspend a cPanel or WHM account
+     * Essa função suspende uma conta
      *
      * @param $username
      * @return mixed
@@ -92,6 +102,13 @@ trait CpanelShortcuts
         ]);
     }
 
+    /**
+     * Essa função faz Upgrade/Downgrade de uma conta no WHM
+     *
+     * @param $username
+     * @param $pkg
+     * @return mixed
+     */
     public function changePackage($username, $pkg)
     {
         return $this->runQuery('changepackage', [
@@ -100,11 +117,23 @@ trait CpanelShortcuts
         ]);
     }
 
+    /**
+     * Lista todos os pacotes cadastrados no WHM
+     *
+     * @return mixed
+     */
     public function listPackages()
     {
         return $this->runQuery('listpkgs', []);
     }
 
+    /**
+     * Adiciona um Plano de Hospedagem no WHM
+     *
+     * @param $name
+     * @param $params
+     * @return mixed
+     */
     public function addPackage($name, $params)
     {
         return $this->runQuery('addpkg', [
@@ -126,6 +155,13 @@ trait CpanelShortcuts
         ]);
     }
 
+    /**
+     * Edita um Plano no WHM
+     *
+     * @param $name
+     * @param $params
+     * @return mixed
+     */
     public function editPackage($name, $params)
     {
         return $this->runQuery('editpkg', [
@@ -147,6 +183,24 @@ trait CpanelShortcuts
         ]);
     }
 
+    /**
+     * Deleta um Plano no WHM
+     *
+     * @param $pkg
+     * @return mixed
+     */
+    public function deletePackage($pkg)
+    {
+        return $this->runQuery('killpkg', [
+            'pkg' => $this->getUsername().'_'.$pkg,
+        ]);
+    }
+
+    /**
+     * Lista todas as contas de revenda no WHM
+     *
+     * @return mixed
+     */
     public function listResellers()
     {
         return $this->runQuery('listresellers', []);

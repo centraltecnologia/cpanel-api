@@ -1,7 +1,7 @@
 <?php
 require 'vendor/autoload.php';
 
-$cPanel = new \Gufy\CpanelPhp\Cpanel(array(
+$cPanel = new \Codemax\cPanelPHP\Cpanel(array(
     'host'        =>  'https://200.201.136.177:2087', // ip or domain complete with its protocol and port
     'username'    =>  'codemax', // username of your server, it usually root.
     'auth_type'   =>  'password', // set 'hash' or 'password'
@@ -33,5 +33,5 @@ $args = [
 */
 //$pkg = $cPanel->changePackage('gerentep','Mega 2GB');
 
-$pkg = $cPanel->listResellers();
+$pkg = $cPanel->listAccounts();
 print_r($pkg);

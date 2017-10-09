@@ -1,11 +1,11 @@
 {
-    "name": "gufy/cpanel-php",
-    "description": "Cpanel/WHM API for PHP",
+    "name": "codemaxbr/cpanel-php",
+    "description": "API cPanel/WHM para PHP",
     "license": "MIT",
     "authors": [
         {
-            "name": "Mochamad Gufron",
-            "email": "mgufronefendi@gmail.com"
+            "name": "Lucas Maia",
+            "email": "lucas.codemax@gmail.com"
         }
     ],
     "require": {
@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Gufy\\CpanelPhp\\": "src/"
+            "Codemax\\cPanelPHP\\": "src/"
         }
     },
     "minimum-stability": "stable"
