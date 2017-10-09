@@ -9,6 +9,10 @@
  */
 trait CpanelShortcuts
 {
+    /******************************************************************************
+     * START WHM Functions
+     ******************************************************************************/
+
     /**
      * List all the accounts that the reseller has access to.
      *
@@ -47,9 +51,110 @@ trait CpanelShortcuts
     public function destroyAccount($username)
     {
         return $this->runQuery('removeacct', [
-            'username' => $username,
+            'user' => $username,
         ]);
     }
+
+    public function unsuspendAccount($username)
+    {
+        return $this->runQuery('unsuspendacct', [
+            'user' => $username,
+        ]);
+    }
+
+    public function detailsAccount($username)
+    {
+        return $this->runQuery('accountsummary', [
+            'user' => $username,
+        ]);
+    }
+
+    /**
+     * List all the accounts suspended that the reseller with reasons
+     * @return mixed
+     */
+    public function listSuspended()
+    {
+        return $this->runQuery('listsuspended', []);
+    }
+
+    /**
+     * This function suspend a cPanel or WHM account
+     *
+     * @param $username
+     * @return mixed
+     */
+    public function suspendAccount($username, $reason = '')
+    {
+        return $this->runQuery('suspendacct', [
+            'user' => $username,
+            'reason' => $reason,
+        ]);
+    }
+
+    public function changePackage($username, $pkg)
+    {
+        return $this->runQuery('changepackage', [
+            'user' => $username,
+            'pkg' => $this->getUsername().'_'.$pkg
+        ]);
+    }
+
+    public function listPackages()
+    {
+        return $this->runQuery('listpkgs', []);
+    }
+
+    public function addPackage($name, $params)
+    {
+        return $this->runQuery('addpkg', [
+            'name' => $name,
+            'quota' => $params['disk_limit'],
+            'ip' => $params['ip'], // y | n - Para permitir IP Dedicado
+            'cgi' => $params['cgi'], // 1 - Enabled | 0 - Disabled
+            'frontpage' => $params['frontpage'], // 1 - Enabled | 0 - Disabled
+            'cpmod' => $params['theme'], // paper_latern, x3
+            'language' => 'pt_br',
+            'maxpop' => $params['mails'],
+            'maxaddon' => $params['domains'],
+            'bwlimit' => $params['bw_limit'],
+            'maxpark' => $params['domains_park'],
+            'maxsql' => $params['sql_limit'],
+            'maxftp' => 'unlimited',
+            'maxlists' => 'unlimited',
+            'maxsub' => 'unlimited'
+        ]);
+    }
+
+    public function editPackage($name, $params)
+    {
+        return $this->runQuery('editpkg', [
+            'name' => $name,
+            'quota' => $params['disk_limit'],
+            'ip' => $params['ip'], // y | n - Para permitir IP Dedicado
+            'cgi' => $params['cgi'], // 1 - Enabled | 0 - Disabled
+            'frontpage' => $params['frontpage'], // 1 - Enabled | 0 - Disabled
+            'cpmod' => $params['theme'], // paper_latern, x3
+            'language' => 'pt_br',
+            'maxpop' => $params['mails'],
+            'maxaddon' => $params['domains'],
+            'bwlimit' => $params['bw_limit'],
+            'maxpark' => $params['domains_park'],
+            'maxsql' => $params['sql_limit'],
+            'maxftp' => 'unlimited',
+            'maxlists' => 'unlimited',
+            'maxsub' => 'unlimited'
+        ]);
+    }
+
+    public function listResellers()
+    {
+        return $this->runQuery('listresellers', []);
+    }
+
+    /******************************************************************************************
+     * END WHM Functions
+     */
 
     /**
      * Gets the email addresses that exist under a cPanel account
@@ -104,33 +209,33 @@ trait CpanelShortcuts
             if ($e->hasResponse()) {
                 switch ($e->getResponse()->getStatusCode()) {
                     case 403:
-                        return [
+                        return json_encode([
                             'status' => 0,
                             'error' => 'auth_error',
                             'verbose' => 'Check Username and Password/Access Key.'
-                        ];
+                        ]);
                     default:
-                        return [
+                        return json_encode([
                             'status' => 0,
                             'error' => 'unknown',
                             'verbose' => 'An unknown error has occurred. Server replied with: ' . $e->getResponse()->getStatusCode()
-                        ];
+                        ]);
                 }
             } else {
-                return [
+                return json_encode([
                     'status' => 0,
                     'error' => 'conn_error',
                     'verbose' => 'Check CSF or hostname/port.'
-                ];
+                ]);
             }
             return false;
         }
 
-        return [
+        return json_encode([
             'status' => 1,
             'error' => false,
             'verbose' => 'Everything is working.'
-        ];
+        ]);
     }
 
     /**
